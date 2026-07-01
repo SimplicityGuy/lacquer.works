@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lacquer Works — Full Asset Set + Design Language</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Anybody:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:         #04030a;
+    --bg2:        #09071a;
+    --bg3:        #0d0b20;
+    --violet:     #9d5cff;
+    --purple:     #c084fc;
+    --magenta:    #f472b6;
+    --mid:        #2d1b6e;
+    --faint:      #1c1040;
+    --near-white: #f0eaff;
+    --dimmed:     #c4b0e8;
+    --url-color:  #c084fc;
+  }
+  body {
+    background: var(--bg);
+    color: var(--near-white);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 48px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-family: 'Anybody', cursive;
+    font-weight: 200; font-style: italic;
+    font-size: 13px; color: var(--near-white);
+    letter-spacing: 0.05em; margin-bottom: 4px;
+  }
+  .page-sub {
+    font-size: 9px; color: var(--url-color);
+    letter-spacing: 0.2em; margin-bottom: 56px;
+  }
+  .section {
+    margin-bottom: 64px;
+  }
+  .section-label {
+    font-size: 9px; letter-spacing: 0.18em; color: #4a3880;
+    text-transform: uppercase; margin-bottom: 24px;
+    padding-bottom: 10px; border-bottom: 0.5px solid var(--faint);
+  }
+  .grid { display: grid; gap: 2px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: var(--bg2); border: 0.5px solid var(--faint);
+    padding: 36px 28px; display: flex; flex-direction: column;
+  }
+  .card-dark  { background: #020108; }
+  .card-light { background: #f0eaff; }
+  .card-mid   { background: #1c1040; }
+  .card-label {
+    font-size: 8px; letter-spacing: 0.18em; color: #4a3880;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .card-label-light { color: #6b4fa0; }
+  .anybody { font-family: 'Anybody', cursive; }
+
+  /* ── WORDMARK ── */
+  .wm-wrap { display: flex; flex-direction: column; }
+  .wm-lacquer {
+    font-family: 'Anybody', cursive; font-weight: 200; font-style: italic;
+    line-height: 1; letter-spacing: -0.5px;
+  }
+  .wm-works-row { display: flex; align-items: flex-end; }
+  .wm-works {
+    font-family: 'Anybody', cursive; font-weight: 200; font-style: italic;
+    line-height: 1; letter-spacing: -0.5px;
+  }
+  .wm-studio {
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap; color: var(--dimmed);
+  }
+  .wm-url {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--url-color); text-align: right;
+  }
+
+  /* ── FAVICON ROW ── */
+  .favicon-row {
+    display: flex; align-items: flex-end; gap: 32px; flex-wrap: wrap;
+    background: var(--bg2); border: 0.5px solid var(--faint);
+    padding: 36px 28px;
+  }
+  .fav-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .fav-note { font-size: 8px; color: #4a3880; letter-spacing: 0.1em; }
+
+  /* ── PALETTE ── */
+  .swatch-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; }
+  .swatch {
+    padding: 20px 16px 14px;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
+  }
+  .swatch-name { font-size: 8px; letter-spacing: 0.1em; }
+  .swatch-hex  { font-size: 9px; letter-spacing: 0.05em; }
+
+  /* ── TYPE SCALE ── */
+  .type-row {
+    background: var(--bg2); border: 0.5px solid var(--faint);
+    padding: 28px; display: flex; align-items: baseline;
+    gap: 24px; border-bottom: none;
+  }
+  .type-row:last-child { border-bottom: 0.5px solid var(--faint); }
+  .type-meta { font-size: 8px; color: #4a3880; width: 180px; flex-shrink: 0; line-height: 1.7; }
+
+  /* ── SPACING ── */
+  .space-row {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--bg2); border: 0.5px solid var(--faint);
+    padding: 16px 24px; border-bottom: none;
+  }
+  .space-row:last-child { border-bottom: 0.5px solid var(--faint); }
+  .space-bar { background: var(--violet); opacity: 0.3; height: 8px; border-radius: 1px; }
+  .space-label { font-size: 8px; color: #4a3880; width: 60px; flex-shrink: 0; }
+  .space-val { font-size: 8px; color: var(--purple); }
+</style>
+</head>
+<body>
+
+<h1>Lacquer Works Studio</h1>
+<div class="page-sub">full asset set · design language · lacquer.works</div>
+
+
+<!-- ══════════════════════════════════════════
+     01 — LOGO LOCKUPS
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">01 — logo lockups</div>
+  <div class="grid g2">
+
+    <!-- A: Horizontal on dark -->
+    <div class="card">
+      <div class="card-label">horizontal · on dark</div>
+      <div style="display:flex; align-items:center; gap:36px">
+        <canvas id="lk-a" width="160" height="170" style="display:block; flex-shrink:0"></canvas>
+        <div class="wm-wrap">
+          <div class="wm-lacquer" style="font-size:40px; color:#f0eaff">Lacquer</div>
+          <div class="wm-works-row">
+            <div class="wm-works" style="font-size:40px; color:#9d5cff">Works</div>
+            <div class="wm-studio" style="font-size:11px; letter-spacing:0.22em; margin-bottom:7px; margin-left:7px">STUDIO</div>
+          </div>
+          <div class="wm-url" style="font-size:8px; letter-spacing:0.2em; margin-top:8px">lacquer.works</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B: Horizontal on deeper dark -->
+    <div class="card card-dark">
+      <div class="card-label">horizontal · on deeper dark</div>
+      <div style="display:flex; align-items:center; gap:36px">
+        <canvas id="lk-b" width="160" height="170" style="display:block; flex-shrink:0"></canvas>
+        <div class="wm-wrap">
+          <div class="wm-lacquer" style="font-size:40px; color:#f0eaff">Lacquer</div>
+          <div class="wm-works-row">
+            <div class="wm-works" style="font-size:40px; color:#9d5cff">Works</div>
+            <div class="wm-studio" style="font-size:11px; letter-spacing:0.22em; margin-bottom:7px; margin-left:7px">STUDIO</div>
+          </div>
+          <div class="wm-url" style="font-size:8px; letter-spacing:0.2em; margin-top:8px">lacquer.works</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C: Stacked on dark -->
+    <div class="card" style="align-items:center; padding:40px">
+      <div class="card-label" style="align-self:flex-start">stacked · on dark</div>
+      <canvas id="lk-c" width="160" height="170" style="display:block"></canvas>
+      <div style="text-align:right; width:160px; margin-top:12px">
+        <div class="anybody" style="font-weight:200;font-style:italic;font-size:30px;color:#f0eaff;line-height:1">Lacquer</div>
+        <div style="display:flex;align-items:flex-end;justify-content:flex-end;gap:5px">
+          <div class="anybody" style="font-weight:200;font-style:italic;font-size:30px;color:#9d5cff;line-height:1">Works</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;color:#c4b0e8;margin-bottom:5px">STUDIO</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.2em;color:#c084fc;margin-top:6px">lacquer.works</div>
+      </div>
+    </div>
+
+    <!-- D: Mark only -->
+    <div class="card" style="align-items:center; justify-content:center; padding:40px">
+      <div class="card-label" style="align-self:flex-start">mark only</div>
+      <canvas id="lk-d" width="200" height="212" style="display:block"></canvas>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     02 — WORDMARK ONLY
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">02 — wordmark only (no mark)</div>
+  <div class="grid g3">
+
+    <div class="card">
+      <div class="card-label">large</div>
+      <div class="wm-lacquer" style="font-size:52px; color:#f0eaff">Lacquer</div>
+      <div class="wm-works-row">
+        <div class="wm-works" style="font-size:52px; color:#9d5cff">Works</div>
+        <div class="wm-studio" style="font-size:12px; letter-spacing:0.22em; margin-bottom:9px; margin-left:8px">STUDIO</div>
+      </div>
+      <div class="wm-url" style="font-size:9px; letter-spacing:0.2em; margin-top:8px">lacquer.works</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">medium</div>
+      <div class="wm-lacquer" style="font-size:32px; color:#f0eaff">Lacquer</div>
+      <div class="wm-works-row">
+        <div class="wm-works" style="font-size:32px; color:#9d5cff">Works</div>
+        <div class="wm-studio" style="font-size:9px; letter-spacing:0.22em; margin-bottom:6px; margin-left:6px">STUDIO</div>
+      </div>
+      <div class="wm-url" style="font-size:8px; letter-spacing:0.18em; margin-top:6px">lacquer.works</div>
+    </div>
+
+    <div class="card card-light">
+      <div class="card-label card-label-light">on light background</div>
+      <div class="wm-lacquer" style="font-size:32px; color:#1c1040">Lacquer</div>
+      <div class="wm-works-row">
+        <div class="wm-works" style="font-size:32px; color:#7c3aed">Works</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;color:#6b4fa0;margin-bottom:6px;margin-left:6px">STUDIO</div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.18em;color:#7c3aed;margin-top:6px;text-align:right">lacquer.works</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     03 — FAVICONS & SMALL MARKS
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">03 — favicons &amp; app icons</div>
+
+  <!-- Dark background row -->
+  <div class="favicon-row" style="margin-bottom:2px">
+    <div style="font-size:8px;color:#4a3880;letter-spacing:0.12em;width:80px;flex-shrink:0">ON DARK</div>
+    <div class="fav-item"><canvas id="f512" width="512" height="512" style="width:96px;height:96px;display:block"></canvas><span class="fav-note">512px</span></div>
+    <div class="fav-item"><canvas id="f256" width="256" height="256" style="width:80px;height:80px;display:block"></canvas><span class="fav-note">256px</span></div>
+    <div class="fav-item"><canvas id="f192" width="192" height="192" style="width:64px;height:64px;display:block"></canvas><span class="fav-note">192px</span></div>
+    <div class="fav-item"><canvas id="f128" width="128" height="128" style="width:48px;height:48px;display:block"></canvas><span class="fav-note">128px</span></div>
+    <div class="fav-item"><canvas id="f64"  width="64"  height="64"  style="width:36px;height:36px;display:block"></canvas><span class="fav-note">64px</span></div>
+    <div class="fav-item"><canvas id="f48"  width="48"  height="48"  style="width:28px;height:28px;display:block"></canvas><span class="fav-note">48px</span></div>
+    <div class="fav-item"><canvas id="f32"  width="32"  height="32"  style="width:24px;height:24px;display:block"></canvas><span class="fav-note">32px</span></div>
+    <div class="fav-item"><canvas id="f16"  width="16"  height="16"  style="width:20px;height:20px;display:block"></canvas><span class="fav-note">16px</span></div>
+  </div>
+
+  <!-- Light background row -->
+  <div class="favicon-row" style="background:#f0eaff; border-color:#d0c4e8">
+    <div style="font-size:8px;color:#6b4fa0;letter-spacing:0.12em;width:80px;flex-shrink:0">ON LIGHT</div>
+    <div class="fav-item"><canvas id="fl512" width="512" height="512" style="width:96px;height:96px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">512px</span></div>
+    <div class="fav-item"><canvas id="fl256" width="256" height="256" style="width:80px;height:80px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">256px</span></div>
+    <div class="fav-item"><canvas id="fl192" width="192" height="192" style="width:64px;height:64px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">192px</span></div>
+    <div class="fav-item"><canvas id="fl128" width="128" height="128" style="width:48px;height:48px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">128px</span></div>
+    <div class="fav-item"><canvas id="fl64"  width="64"  height="64"  style="width:36px;height:36px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">64px</span></div>
+    <div class="fav-item"><canvas id="fl48"  width="48"  height="48"  style="width:28px;height:28px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">48px</span></div>
+    <div class="fav-item"><canvas id="fl32"  width="32"  height="32"  style="width:24px;height:24px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">32px</span></div>
+    <div class="fav-item"><canvas id="fl16"  width="16"  height="16"  style="width:20px;height:20px;display:block"></canvas><span class="fav-note" style="color:#6b4fa0">16px</span></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     04 — COLOUR PALETTE
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">04 — colour palette</div>
+  <div class="swatch-grid">
+    <div class="swatch" style="background:#04030a">
+      <div class="swatch-name" style="color:#4a3880">Ground</div>
+      <div class="swatch-hex" style="color:#4a3880">#04030a</div>
+    </div>
+    <div class="swatch" style="background:#9d5cff">
+      <div class="swatch-name" style="color:#f0eaff">Violet</div>
+      <div class="swatch-hex" style="color:#f0eaff">#9d5cff</div>
+    </div>
+    <div class="swatch" style="background:#c084fc">
+      <div class="swatch-name" style="color:#1c1040">Purple</div>
+      <div class="swatch-hex" style="color:#1c1040">#c084fc</div>
+    </div>
+    <div class="swatch" style="background:#f472b6">
+      <div class="swatch-name" style="color:#1c1040">Magenta</div>
+      <div class="swatch-hex" style="color:#1c1040">#f472b6</div>
+    </div>
+    <div class="swatch" style="background:#f0eaff">
+      <div class="swatch-name" style="color:#2d1b6e">Near-white</div>
+      <div class="swatch-hex" style="color:#2d1b6e">#f0eaff</div>
+    </div>
+    <div class="swatch" style="background:#c4b0e8">
+      <div class="swatch-name" style="color:#1c1040">Dimmed</div>
+      <div class="swatch-hex" style="color:#1c1040">#c4b0e8</div>
+    </div>
+    <div class="swatch" style="background:#2d1b6e">
+      <div class="swatch-name" style="color:#c4b0e8">Mid</div>
+      <div class="swatch-hex" style="color:#c4b0e8">#2d1b6e</div>
+    </div>
+    <div class="swatch" style="background:#1c1040">
+      <div class="swatch-name" style="color:#4a3880">Faint</div>
+      <div class="swatch-hex" style="color:#4a3880">#1c1040</div>
+    </div>
+    <div class="swatch" style="background:#09071a">
+      <div class="swatch-name" style="color:#4a3880">Surface</div>
+      <div class="swatch-hex" style="color:#4a3880">#09071a</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     05 — TYPE SCALE
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">05 — type scale</div>
+
+  <div class="type-row">
+    <div class="type-meta">Display XL<br>Anybody 200i · 72px<br>tracking −0.5px</div>
+    <div class="anybody" style="font-weight:200;font-style:italic;font-size:72px;color:#f0eaff;line-height:1">Lacquer Works</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">Display L<br>Anybody 200i · 48px<br>tracking −0.5px</div>
+    <div class="anybody" style="font-weight:200;font-style:italic;font-size:48px;color:#f0eaff;line-height:1">Lacquer Works</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">Display M<br>Anybody 200i · 32px</div>
+    <div class="anybody" style="font-weight:200;font-style:italic;font-size:32px;color:#f0eaff;line-height:1">Lacquer Works Studio</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">Heading<br>JetBrains Mono 400 · 16px<br>tracking +0.06em</div>
+    <div style="font-size:16px;letter-spacing:0.06em;color:#f0eaff">LACQUER WORKS STUDIO</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">Body<br>JetBrains Mono 300 · 13px<br>tracking +0.02em · leading 1.8</div>
+    <div style="font-size:13px;font-weight:300;letter-spacing:0.02em;line-height:1.8;color:#c4b0e8;max-width:420px">Building tools at the intersection of music, data, and AI. Independent studio. lacquer.works</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">Label / Caption<br>JetBrains Mono 400 · 9px<br>tracking +0.18em · uppercase</div>
+    <div style="font-size:9px;letter-spacing:0.18em;color:#c084fc;text-transform:uppercase">Founder · Principal Engineer · Est. MMXXV</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">URL / Utility<br>JetBrains Mono 400 · 9px<br>tracking +0.2em</div>
+    <div style="font-size:9px;letter-spacing:0.2em;color:#c084fc">lacquer.works · github · discogs</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     06 — SPACING SYSTEM
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">06 — spacing system</div>
+  <div class="space-row"><div class="space-label">xs</div><div class="space-bar" style="width:4px"></div><div class="space-val">4px</div></div>
+  <div class="space-row"><div class="space-label">sm</div><div class="space-bar" style="width:8px"></div><div class="space-val">8px</div></div>
+  <div class="space-row"><div class="space-label">md</div><div class="space-bar" style="width:16px"></div><div class="space-val">16px</div></div>
+  <div class="space-row"><div class="space-label">lg</div><div class="space-bar" style="width:24px"></div><div class="space-val">24px</div></div>
+  <div class="space-row"><div class="space-label">xl</div><div class="space-bar" style="width:40px"></div><div class="space-val">40px</div></div>
+  <div class="space-row"><div class="space-label">2xl</div><div class="space-bar" style="width:64px"></div><div class="space-val">64px</div></div>
+  <div class="space-row"><div class="space-label">3xl</div><div class="space-bar" style="width:96px"></div><div class="space-val">96px</div></div>
+  <div class="space-row"><div class="space-label">4xl</div><div class="space-bar" style="width:128px"></div><div class="space-val">128px</div></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     07 — UI COMPONENTS
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">07 — ui components</div>
+  <div class="grid g2">
+
+    <div class="card">
+      <div class="card-label">buttons</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+        <!-- Primary -->
+        <button style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:#f0eaff;background:transparent;border:0.8px solid #9d5cff;padding:12px 24px;cursor:pointer;text-transform:uppercase">Get in touch</button>
+        <!-- Ghost -->
+        <button style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:#c084fc;background:transparent;border:0.8px solid #2d1b6e;padding:12px 24px;cursor:pointer;text-transform:uppercase">View projects</button>
+        <!-- Filled -->
+        <button style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:#f0eaff;background:#9d5cff;border:none;padding:12px 24px;cursor:pointer;text-transform:uppercase">lacquer.works ↗</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">tags / badges</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;color:#c084fc;border:0.5px solid #2d1b6e;padding:4px 10px;text-transform:uppercase">AI</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;color:#c084fc;border:0.5px solid #2d1b6e;padding:4px 10px;text-transform:uppercase">Music</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;color:#c084fc;border:0.5px solid #2d1b6e;padding:4px 10px;text-transform:uppercase">Data</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;color:#f472b6;border:0.5px solid #f472b6;padding:4px 10px;text-transform:uppercase">Open Source</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;color:#9d5cff;border:0.5px solid #9d5cff;padding:4px 10px;text-transform:uppercase">Vinyl</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;color:#9d5cff;border:0.5px solid #9d5cff;padding:4px 10px;text-transform:uppercase">DevOps</span>
+      </div>
+    </div>
+
+    <div class="card" style="grid-column:1/-1">
+      <div class="card-label">project card</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:8px">
+        <div style="background:#04030a;border:0.5px solid #1c1040;padding:24px 20px">
+          <div style="font-size:8px;letter-spacing:0.18em;color:#4a3880;text-transform:uppercase;margin-bottom:12px">Project</div>
+          <div class="anybody" style="font-weight:200;font-style:italic;font-size:22px;color:#c084fc;margin-bottom:8px">discogsography</div>
+          <div style="font-size:10px;font-weight:300;color:#c4b0e8;line-height:1.7;margin-bottom:16px">Vinyl collection graph — Neo4j + PostgreSQL + Discogs API</div>
+          <div style="font-size:8px;letter-spacing:0.12em;color:#4a3880">python · docker · graph →</div>
+        </div>
+        <div style="background:#04030a;border:0.5px solid #1c1040;padding:24px 20px">
+          <div style="font-size:8px;letter-spacing:0.18em;color:#4a3880;text-transform:uppercase;margin-bottom:12px">Project</div>
+          <div class="anybody" style="font-weight:200;font-style:italic;font-size:22px;color:#c084fc;margin-bottom:8px">cronduit</div>
+          <div style="font-size:10px;font-weight:300;color:#c4b0e8;line-height:1.7;margin-bottom:16px">Docker-native cron scheduler with visual identity and full design system</div>
+          <div style="font-size:8px;letter-spacing:0.12em;color:#4a3880">docker · scheduling · open source →</div>
+        </div>
+        <div style="background:#04030a;border:0.5px solid #1c1040;padding:24px 20px">
+          <div style="font-size:8px;letter-spacing:0.18em;color:#4a3880;text-transform:uppercase;margin-bottom:12px">Project</div>
+          <div class="anybody" style="font-weight:200;font-style:italic;font-size:22px;color:#c084fc;margin-bottom:8px">GRUVAX</div>
+          <div style="font-size:10px;font-weight:300;color:#c4b0e8;line-height:1.7;margin-bottom:16px">AI-powered music file normalizer — Anthropic Batch API + prompt caching</div>
+          <div style="font-size:8px;letter-spacing:0.12em;color:#4a3880">python · AI · music →</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     08 — BORDERS & SURFACES
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">08 — borders &amp; surfaces</div>
+  <div class="grid g4">
+    <div style="background:#04030a;border:0.5px solid #1c1040;padding:24px 20px">
+      <div style="font-size:8px;color:#4a3880;margin-bottom:8px;letter-spacing:0.12em">surface · ground</div>
+      <div style="font-size:8px;color:#2d1b6e">#04030a · border #1c1040 · 0.5px</div>
+    </div>
+    <div style="background:#09071a;border:0.5px solid #1c1040;padding:24px 20px">
+      <div style="font-size:8px;color:#4a3880;margin-bottom:8px;letter-spacing:0.12em">surface · card</div>
+      <div style="font-size:8px;color:#2d1b6e">#09071a · border #1c1040 · 0.5px</div>
+    </div>
+    <div style="background:#0d0b20;border:0.5px solid #2d1b6e;padding:24px 20px">
+      <div style="font-size:8px;color:#4a3880;margin-bottom:8px;letter-spacing:0.12em">surface · raised</div>
+      <div style="font-size:8px;color:#2d1b6e">#0d0b20 · border #2d1b6e · 0.5px</div>
+    </div>
+    <div style="background:#1c1040;border:0.5px solid #2d1b6e;padding:24px 20px">
+      <div style="font-size:8px;color:#c4b0e8;margin-bottom:8px;letter-spacing:0.12em">surface · highlight</div>
+      <div style="font-size:8px;color:#4a3880">#1c1040 · border #2d1b6e · 0.5px</div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ─────────────────────────────────────────────
+// MARK RENDERER — Canvas API
+// ─────────────────────────────────────────────
+function drawMark(canvasId, opts) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  const bg = opts.bg || '#04030a';
+
+  const o = Object.assign({
+    cx: W / 2,
+    cy: H / 2 + H * 0.05,
+    rOuter:  W * 0.36,
+    rGroove: W * 0.29,
+    rFill:   W * 0.26,
+    rGlyphA: W * 0.21,
+    rGlyphB: W * 0.14,
+    rText:   W * 0.325,
+    barW:    W * 0.15,
+    barOff:  W * 0.046,
+    dotA:    W * 0.019,
+    dotB:    W * 0.015,
+    fontSize: Math.max(6, Math.round(W * 0.032)),
+    showText: W >= 80,
+    outerColor:  '#9d5cff',
+    grooveColor: '#2d1b6e',
+    glyphAColor: '#c084fc',
+    glyphBColor: '#2d1b6e',
+    bar1Color:   '#c084fc',
+    bar2Color:   '#f472b6',
+    bar3Color:   '#c084fc',
+    dot1Color:   '#f472b6',
+    dot2Color:   '#9d5cff',
+    textTopColor:'#c084fc',
+    textBotColor:'#9d5cff',
+  }, opts);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // background fill
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // outer ring
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rOuter, 0, Math.PI * 2);
+  ctx.strokeStyle = o.outerColor;
+  ctx.lineWidth = Math.max(0.8, W * 0.009);
+  ctx.stroke();
+
+  // groove ring
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rGroove, 0, Math.PI * 2);
+  ctx.strokeStyle = o.grooveColor;
+  ctx.lineWidth = Math.max(0.5, W * 0.004);
+  ctx.stroke();
+
+  // interior fill
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rFill, 0, Math.PI * 2);
+  ctx.fillStyle = bg;
+  ctx.fill();
+
+  // outer glyph arc (310deg, gap at bottom-right)
+  const gapStart = Math.PI * 50 / 180;
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rGlyphA, gapStart, 0, false);
+  ctx.strokeStyle = o.glyphAColor;
+  ctx.lineWidth = Math.max(0.8, W * 0.009);
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // inner glyph arc (280deg)
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rGlyphB, Math.PI * 65/180, Math.PI * 345/180, false);
+  ctx.strokeStyle = o.glyphBColor;
+  ctx.lineWidth = Math.max(0.5, W * 0.005);
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // waveform bars
+  const bx = o.cx - o.barW * 0.35;
+  const by = o.cy;
+  const lw = Math.max(0.8, W * 0.01);
+  ctx.lineCap = 'round';
+
+  ctx.beginPath();
+  ctx.moveTo(bx, by - o.barOff);
+  ctx.lineTo(bx + o.barW, by - o.barOff);
+  ctx.strokeStyle = o.bar1Color; ctx.lineWidth = lw; ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(bx + o.barW * 0.18, by);
+  ctx.lineTo(bx + o.barW * 1.18, by);
+  ctx.strokeStyle = o.bar2Color; ctx.lineWidth = lw; ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(bx, by + o.barOff);
+  ctx.lineTo(bx + o.barW * 0.82, by + o.barOff);
+  ctx.strokeStyle = o.bar3Color; ctx.lineWidth = lw; ctx.stroke();
+
+  // terminal dots
+  ctx.beginPath();
+  ctx.arc(o.cx + o.rGlyphA, o.cy, o.dotA, 0, Math.PI * 2);
+  ctx.fillStyle = o.dot1Color; ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(
+    o.cx + o.rGlyphA * Math.cos(gapStart),
+    o.cy + o.rGlyphA * Math.sin(gapStart),
+    o.dotB, 0, Math.PI * 2
+  );
+  ctx.fillStyle = o.dot2Color; ctx.fill();
+
+  // arc text
+  if (!o.showText) return;
+
+  const fs = o.fontSize;
+  ctx.font = `${fs}px 'JetBrains Mono', monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  function arcText(text, radius, startAngle, direction, color, spacing) {
+    const letters = text.split('');
+    const letterAngles = letters.map(l => (ctx.measureText(l).width + spacing) / radius);
+    const totalAngle = letterAngles.reduce((a, b) => a + b, 0);
+    let angle = startAngle - (totalAngle / 2) * direction;
+    ctx.fillStyle = color;
+    letters.forEach((letter) => {
+      const a = letterAngles.shift();
+      const drawAngle = angle + (a / 2) * direction;
+      ctx.save();
+      ctx.translate(
+        o.cx + radius * Math.cos(drawAngle),
+        o.cy + radius * Math.sin(drawAngle)
+      );
+      ctx.rotate(drawAngle + (direction > 0 ? Math.PI / 2 : -Math.PI / 2));
+      ctx.fillText(letter, 0, 0);
+      ctx.restore();
+      angle += a * direction;
+    });
+  }
+
+  arcText('LACQUER', o.rText, -Math.PI / 2,  1, o.textTopColor, fs * 0.9);
+  arcText('WORKS',   o.rText,  Math.PI / 2, -1, o.textBotColor, fs * 1.1);
+}
+
+// Light variant overrides
+const lightOpts = {
+  bg: '#f0eaff',
+  outerColor:  '#7c3aed',
+  grooveColor: '#c4b0e8',
+  glyphAColor: '#9d5cff',
+  glyphBColor: '#c4b0e8',
+  bar1Color:   '#9d5cff',
+  bar2Color:   '#ec4899',
+  bar3Color:   '#9d5cff',
+  dot1Color:   '#ec4899',
+  dot2Color:   '#7c3aed',
+  textTopColor:'#7c3aed',
+  textBotColor:'#9d5cff',
+};
+
+document.fonts.ready.then(() => {
+  // Lockups
+  drawMark('lk-a', {});
+  drawMark('lk-b', { bg: '#020108' });
+  drawMark('lk-c', {});
+  drawMark('lk-d', {});
+
+  // Favicons dark
+  ['f512','f256','f192','f128','f64','f48','f32','f16'].forEach(id => drawMark(id, {}));
+
+  // Favicons light
+  ['fl512','fl256','fl192','fl128','fl64','fl48','fl32','fl16'].forEach(id => drawMark(id, lightOpts));
+});
+</script>
+</body>
+</html>
