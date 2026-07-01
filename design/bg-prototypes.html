@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lacquer Works — Background Prototypes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Anybody:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#04030a; --bg2:#09071a; --bg3:#0d0b20;
+    --violet:#9d5cff; --purple:#c084fc; --magenta:#f472b6;
+    --mid:#2d1b6e; --faint:#1c1040;
+    --near-white:#f0eaff; --dimmed:#c4b0e8; --url-color:#c084fc;
+  }
+  html, body { background: var(--bg); color: var(--near-white); }
+  body { font-family: 'JetBrains Mono', monospace; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(4,3,10,0.92); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--faint);
+  }
+  .nav-left { display: flex; align-items: center; gap: 14px; }
+  .nav-name { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--near-white); }
+  .nav-url { font-size: 9px; letter-spacing: 0.2em; color: var(--url-color); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; min-height: 100vh; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #bg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+  .hero-inner {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 80px;
+    padding: 0 40px; max-width: 1100px;
+  }
+  .hero-mark-wrap { flex-shrink: 0; }
+  #hero-mark { display: block; }
+
+  .wm-lacquer { font-family:'Anybody',cursive; font-weight:200; font-style:italic; font-size:64px; line-height:1; letter-spacing:-0.5px; color:var(--near-white); }
+  .wm-works-row { display:flex; align-items:flex-end; }
+  .wm-works { font-family:'Anybody',cursive; font-weight:200; font-style:italic; font-size:64px; line-height:1; letter-spacing:-0.5px; color:var(--violet); }
+  .wm-studio { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.22em; color:var(--dimmed); margin-bottom:10px; margin-left:10px; white-space:nowrap; }
+  .wm-url { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--url-color); text-align:right; margin-top:8px; }
+
+  .hero-copy { margin-top:40px; font-size:13px; font-weight:300; letter-spacing:0.02em; line-height:1.8; color:var(--dimmed); }
+  .hero-btn {
+    display:inline-block; margin-top:24px;
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--near-white); background:transparent; border:0.8px solid var(--violet);
+    padding:12px 24px; cursor:pointer; text-decoration:none; transition: background .2s, color .2s;
+  }
+  .hero-btn:hover { background:var(--violet); color:var(--near-white); }
+
+  /* ── PROTOTYPE SWITCHER (not part of final page) ── */
+  .switcher {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100;
+    display: flex; gap: 2px; align-items: stretch;
+    background: rgba(9,7,26,0.92); backdrop-filter: blur(12px);
+    border: 0.5px solid var(--faint); padding: 6px;
+  }
+  .switcher button {
+    font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--dimmed); background:transparent; border:0.5px solid transparent;
+    padding:8px 14px; cursor:pointer;
+  }
+  .switcher button:hover { color: var(--near-white); }
+  .switcher button.active { color: var(--near-white); border:0.5px solid var(--violet); }
+  .switcher .sep { width:0.5px; background:var(--faint); margin:4px 2px; }
+  .switcher .label { font-size:8px; letter-spacing:0.18em; color:#4a3880; align-self:center; padding:0 8px; text-transform:uppercase; }
+
+  @media (max-width: 768px) {
+    .hero-inner { flex-direction: column; gap: 32px; text-align:center; }
+    .wm-lacquer, .wm-works { font-size: 44px; }
+    .switcher { flex-wrap: wrap; max-width: 92vw; justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <canvas id="nav-mark" width="48" height="48"></canvas>
+    <span class="nav-name">Lacquer Works</span>
+  </div>
+  <span class="nav-url">lacquer.works</span>
+</nav>
+
+<section class="hero">
+  <canvas id="bg-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-mark-wrap">
+      <canvas id="hero-mark" width="320" height="340"></canvas>
+    </div>
+    <div class="hero-text">
+      <div class="wm-lacquer">Lacquer</div>
+      <div class="wm-works-row">
+        <div class="wm-works">Works</div>
+        <div class="wm-studio">STUDIO</div>
+      </div>
+      <div class="wm-url">lacquer.works</div>
+      <div class="hero-copy">// building at the intersection of music, data, and AI</div>
+      <div><a class="hero-btn" href="mailto:hello@lacquer.works">Get in touch →</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="switcher">
+  <span class="label">Background</span>
+  <button data-mode="grooves" class="active">Vinyl grooves</button>
+  <div class="sep"></div>
+  <button data-mode="dust">Drifting dust</button>
+  <div class="sep"></div>
+  <button data-mode="lattice">Signal lattice</button>
+  <div class="sep"></div>
+  <button data-mode="waveform">Waveform</button>
+  <div class="sep"></div>
+  <button data-mode="off">Off</button>
+  <div class="sep"></div>
+  <span class="label">Intensity</span>
+  <button data-int="0.55">Whisper</button>
+  <button data-int="1" class="active">Calm</button>
+  <button data-int="1.7">Present</button>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// MARK RENDERER — Canvas API (copied exactly from asset set)
+// ─────────────────────────────────────────────
+function drawMark(canvasId, opts) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const bg = opts.bg || '#04030a';
+  const o = Object.assign({
+    cx: W/2, cy: H/2 + H*0.05,
+    rOuter: W*0.36, rGroove: W*0.29, rFill: W*0.26,
+    rGlyphA: W*0.21, rGlyphB: W*0.14, rText: W*0.325,
+    barW: W*0.15, barOff: W*0.046, dotA: W*0.019, dotB: W*0.015,
+    fontSize: Math.max(6, Math.round(W*0.032)), showText: W >= 80,
+    outerColor:'#9d5cff', grooveColor:'#2d1b6e', glyphAColor:'#c084fc', glyphBColor:'#2d1b6e',
+    bar1Color:'#c084fc', bar2Color:'#f472b6', bar3Color:'#c084fc',
+    dot1Color:'#f472b6', dot2Color:'#9d5cff', textTopColor:'#c084fc', textBotColor:'#9d5cff',
+  }, opts);
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+  ctx.beginPath(); ctx.arc(o.cx,o.cy,o.rOuter,0,Math.PI*2); ctx.strokeStyle=o.outerColor; ctx.lineWidth=Math.max(0.8,W*0.009); ctx.stroke();
+  ctx.beginPath(); ctx.arc(o.cx,o.cy,o.rGroove,0,Math.PI*2); ctx.strokeStyle=o.grooveColor; ctx.lineWidth=Math.max(0.5,W*0.004); ctx.stroke();
+  ctx.beginPath(); ctx.arc(o.cx,o.cy,o.rFill,0,Math.PI*2); ctx.fillStyle=bg; ctx.fill();
+  const gapStart = Math.PI*50/180;
+  ctx.beginPath(); ctx.arc(o.cx,o.cy,o.rGlyphA,gapStart,0,false); ctx.strokeStyle=o.glyphAColor; ctx.lineWidth=Math.max(0.8,W*0.009); ctx.lineCap='round'; ctx.stroke();
+  ctx.beginPath(); ctx.arc(o.cx,o.cy,o.rGlyphB,Math.PI*65/180,Math.PI*345/180,false); ctx.strokeStyle=o.glyphBColor; ctx.lineWidth=Math.max(0.5,W*0.005); ctx.lineCap='round'; ctx.stroke();
+  const bx=o.cx-o.barW*0.35, by=o.cy, lw=Math.max(0.8,W*0.01); ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(bx,by-o.barOff); ctx.lineTo(bx+o.barW,by-o.barOff); ctx.strokeStyle=o.bar1Color; ctx.lineWidth=lw; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(bx+o.barW*0.18,by); ctx.lineTo(bx+o.barW*1.18,by); ctx.strokeStyle=o.bar2Color; ctx.lineWidth=lw; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(bx,by+o.barOff); ctx.lineTo(bx+o.barW*0.82,by+o.barOff); ctx.strokeStyle=o.bar3Color; ctx.lineWidth=lw; ctx.stroke();
+  ctx.beginPath(); ctx.arc(o.cx+o.rGlyphA,o.cy,o.dotA,0,Math.PI*2); ctx.fillStyle=o.dot1Color; ctx.fill();
+  ctx.beginPath(); ctx.arc(o.cx+o.rGlyphA*Math.cos(gapStart),o.cy+o.rGlyphA*Math.sin(gapStart),o.dotB,0,Math.PI*2); ctx.fillStyle=o.dot2Color; ctx.fill();
+  if (!o.showText) return;
+  const fs=o.fontSize; ctx.font=`${fs}px 'JetBrains Mono', monospace`; ctx.textAlign='center'; ctx.textBaseline='middle';
+  function arcText(text,radius,startAngle,direction,color,spacing){
+    const letters=text.split('');
+    const widths=letters.map(l=>(ctx.measureText(l).width+spacing)/radius);
+    const total=widths.reduce((a,b)=>a+b,0);
+    let angle=startAngle-(total/2)*direction; ctx.fillStyle=color;
+    letters.forEach((letter,i)=>{ const a=widths[i]; const drawAngle=angle+(a/2)*direction;
+      ctx.save(); ctx.translate(o.cx+radius*Math.cos(drawAngle),o.cy+radius*Math.sin(drawAngle));
+      ctx.rotate(drawAngle+(direction>0?Math.PI/2:-Math.PI/2)); ctx.fillText(letter,0,0); ctx.restore(); angle+=a*direction; });
+  }
+  arcText('LACQUER',o.rText,-Math.PI/2,1,o.textTopColor,fs*0.9);
+  arcText('WORKS',o.rText,Math.PI/2,-1,o.textBotColor,fs*1.1);
+}
+
+// ─────────────────────────────────────────────
+// BACKGROUND ENGINE — whisper intensity
+// ─────────────────────────────────────────────
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cv = document.getElementById('bg-canvas');
+const cx = cv.getContext('2d');
+let W=0, H=0, DPR=Math.min(window.devicePixelRatio||1, 2);
+let mode = 'grooves';
+let intensity = 1;            // whisper=0.55, calm=1, present=1.7
+let particles=[], nodes=[];
+
+function resize(){
+  const r = cv.getBoundingClientRect();
+  W = r.width; H = r.height;
+  cv.width = W*DPR; cv.height = H*DPR;
+  cx.setTransform(DPR,0,0,DPR,0,0);
+  initMode();
+}
+
+function initMode(){
+  if (mode==='dust'){
+    particles = Array.from({length: Math.round(W*H/5500)}, ()=>({
+      x: Math.random()*W, y: Math.random()*H,
+      z: 0.35+Math.random()*0.65,               // depth → speed & size
+      r: 0.6+Math.random()*1.8,
+      tw: Math.random()*Math.PI*2,              // twinkle phase
+      c: Math.random()<0.20 ? '#f472b6' : (Math.random()<0.5 ? '#c084fc' : '#9d5cff'),
+    }));
+  }
+  if (mode==='lattice'){
+    nodes = Array.from({length: Math.round(W*H/26000)}, ()=>({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-0.5)*0.08, vy: (Math.random()-0.5)*0.08,
+    }));
+  }
+}
+
+function drawGrooves(t){
+  // Concentric record grooves with an OUTWARD-TRAVELLING brightness wave (rotation of
+  // concentric circles is visually invisible, so motion comes from the wave + tonearm dot).
+  const ccx = W*0.30, ccy = H*0.52;
+  const maxR = Math.hypot(Math.max(ccx, W-ccx), Math.max(ccy, H-ccy)) + 40;
+  const gap = 15;
+  const waveSpeed = 0.0011 * intensity;
+  cx.save();
+  cx.translate(ccx, ccy);
+  for (let r=gap; r<maxR; r+=gap){
+    const wave = Math.sin(r*0.045 - t*waveSpeed);   // -1..1 crest travels outward
+    const crest = Math.max(0, wave);                 // 0..1
+    const base = 0.045, swing = 0.16 * intensity;
+    const alpha = (base + crest*swing) * (1 - r/maxR*0.32);
+    cx.beginPath(); cx.arc(0,0,r,0,Math.PI*2);
+    cx.strokeStyle = `rgba(157,92,255,${alpha.toFixed(4)})`;
+    cx.lineWidth = 1; cx.stroke();
+  }
+  // breathing spindle ring
+  cx.beginPath(); cx.arc(0,0, 58 + Math.sin(t*0.0006)*7, 0, Math.PI*2);
+  cx.strokeStyle = `rgba(192,132,252,${(0.10*intensity).toFixed(4)})`; cx.lineWidth=1; cx.stroke();
+  // orbiting "tonearm" dot — gives perceptible rotation, echoes the mark's terminal dots
+  const orbitR = Math.min(W,H)*0.20;
+  const ang = -t*0.00026 * intensity;
+  const dx = orbitR*Math.cos(ang), dy = orbitR*Math.sin(ang);
+  cx.beginPath(); cx.moveTo(0,0); cx.lineTo(dx,dy);
+  cx.strokeStyle = `rgba(157,92,255,${(0.05*intensity).toFixed(4)})`; cx.lineWidth=0.5; cx.stroke();
+  cx.beginPath(); cx.arc(dx,dy, 2.2, 0, Math.PI*2);
+  cx.fillStyle = `rgba(244,114,182,${Math.min(0.85,0.55*intensity).toFixed(4)})`; cx.fill();
+  cx.restore();
+}
+
+function drawDust(t){
+  for (const p of particles){
+    p.y -= p.z*0.16*intensity;                       // upward drift
+    p.x += Math.sin((t*0.00012)+p.tw)*0.07*p.z;      // gentle sway
+    if (p.y < -4) { p.y = H+4; p.x = Math.random()*W; }
+    const tw = 0.5 + 0.5*Math.sin(t*0.0009 + p.tw);
+    const alpha = Math.min(0.9, (0.16 + tw*0.34) * p.z * intensity);
+    cx.beginPath(); cx.arc(p.x, p.y, p.r*p.z+0.4, 0, Math.PI*2);
+    cx.fillStyle = hexA(p.c, alpha); cx.fill();
+  }
+}
+
+function drawLattice(t){
+  const linkDist = Math.min(W,H)*0.16;
+  for (const n of nodes){
+    n.x += n.vx; n.y += n.vy;
+    if (n.x<0||n.x>W) n.vx*=-1;
+    if (n.y<0||n.y>H) n.vy*=-1;
+  }
+  // links
+  for (let i=0;i<nodes.length;i++){
+    for (let j=i+1;j<nodes.length;j++){
+      const a=nodes[i], b=nodes[j];
+      const d=Math.hypot(a.x-b.x, a.y-b.y);
+      if (d<linkDist){
+        const alpha=(1-d/linkDist)*0.12*intensity;
+        cx.beginPath(); cx.moveTo(a.x,a.y); cx.lineTo(b.x,b.y);
+        cx.strokeStyle=`rgba(157,92,255,${alpha.toFixed(4)})`; cx.lineWidth=0.5; cx.stroke();
+      }
+    }
+  }
+  // nodes
+  for (const n of nodes){
+    cx.beginPath(); cx.arc(n.x,n.y,1.1,0,Math.PI*2);
+    cx.fillStyle=`rgba(192,132,252,${Math.min(0.9,0.5*intensity).toFixed(4)})`; cx.fill();
+  }
+}
+
+function drawWaveform(t){
+  const lines = [
+    { y: H*0.62, amp: 10, f: 0.010, sp: 0.0006, col:'192,132,252', a:0.22 },
+    { y: H*0.70, amp: 16, f: 0.007, sp:-0.0004, col:'157,92,255', a:0.18 },
+    { y: H*0.78, amp: 7,  f: 0.016, sp: 0.0009, col:'244,114,182', a:0.14 },
+  ];
+  for (const L of lines){
+    cx.beginPath();
+    for (let x=0; x<=W; x+=4){
+      const y = L.y
+        + Math.sin(x*L.f + t*L.sp)*L.amp
+        + Math.sin(x*L.f*0.5 - t*L.sp*1.7)*L.amp*0.4;
+      x===0 ? cx.moveTo(x,y) : cx.lineTo(x,y);
+    }
+    cx.strokeStyle=`rgba(${L.col},${Math.min(0.9,L.a*intensity).toFixed(4)})`; cx.lineWidth=1; cx.stroke();
+  }
+}
+
+function hexA(hex, a){
+  const n=parseInt(hex.slice(1),16);
+  return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a.toFixed(4)})`;
+}
+
+function frame(t){
+  cx.clearRect(0,0,W,H);
+  if (mode==='grooves') drawGrooves(t);
+  else if (mode==='dust') drawDust(t);
+  else if (mode==='lattice') drawLattice(t);
+  else if (mode==='waveform') drawWaveform(t);
+  if (!reduceMotion) requestAnimationFrame(frame);
+}
+
+// switcher — mode buttons
+document.querySelectorAll('.switcher button[data-mode]').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.switcher button[data-mode]').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    mode = b.dataset.mode;
+    cx.clearRect(0,0,W,H);
+    initMode();
+  });
+});
+// switcher — intensity buttons
+document.querySelectorAll('.switcher button[data-int]').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.switcher button[data-int]').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    intensity = parseFloat(b.dataset.int);
+  });
+});
+
+window.addEventListener('resize', resize);
+
+document.fonts.ready.then(()=>{
+  drawMark('hero-mark', {});
+  drawMark('nav-mark', { showText:false });
+  resize();
+  if (reduceMotion) { frame(0); } else { requestAnimationFrame(frame); }
+});
+</script>
+</body>
+</html>
