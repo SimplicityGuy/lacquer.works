@@ -9,6 +9,7 @@
 <meta property="og:url" content="https://lacquer.works">
 <meta name="theme-color" content="#04030a">
 <title>Lacquer Works Studio</title>
+<link id="favicon" rel="icon" type="image/png" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Anybody:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
@@ -373,6 +374,11 @@ document.fonts.ready.then(() => {
     outerColor: TRANSPARENT, grooveColor: TRANSPARENT,
     bar1Color: TRANSPARENT, bar2Color: TRANSPARENT, bar3Color: TRANSPARENT,
   });
+  const fav = document.createElement('canvas');
+  fav.id = 'favicon-src'; fav.width = 64; fav.height = 64;
+  fav.style.display = 'none'; document.body.appendChild(fav);
+  drawMark('favicon-src', {});
+  document.getElementById('favicon').href = fav.toDataURL('image/png');
 });
   </script>
 </body>
