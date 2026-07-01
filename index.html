@@ -70,6 +70,17 @@
   .about-col:first-child { border-left: none; }
   .about-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--url-color); margin-bottom: 16px; }
   .about-body  { font-size: 12px; font-weight: 300; line-height: 1.8; color: var(--dimmed); }
+  .projects { padding: 96px 40px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--url-color); margin-bottom: 24px; }
+  .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .project-card { background: var(--bg); border: 0.5px solid var(--faint); padding: 24px; display: flex; flex-direction: column; transition: border-color .2s; }
+  .project-card:hover { border-color: var(--mid); }
+  .project-kicker { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: #4a3880; margin-bottom: 12px; }
+  .project-name { font-family:'Anybody',cursive; font-weight:200; font-style:italic; font-size:22px; color: var(--purple); margin-bottom: 8px; }
+  .project-desc { font-size: 11px; font-weight: 300; line-height: 1.7; color: var(--dimmed); margin-bottom: 16px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .project-tags span { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); border: 0.5px solid var(--mid); padding: 4px 10px; }
+  .project-arrow { margin-top: auto; color: var(--violet); font-size: 14px; }
 </style>
 </head>
 <body>
@@ -113,7 +124,32 @@
       <div class="about-body">Lacquer Works Studio. Seattle. Open source where possible.</div>
     </div>
   </section>
-  <section class="projects"></section>
+  <section class="projects">
+    <div class="section-label">// projects</div>
+    <div class="project-grid">
+      <a class="project-card" href="#">
+        <div class="project-kicker">Project</div>
+        <div class="project-name">discogsography</div>
+        <div class="project-desc">Vinyl collection graph. Neo4j + PostgreSQL + Discogs API.</div>
+        <div class="project-tags"><span>python</span><span>docker</span><span>graph</span></div>
+        <div class="project-arrow">→</div>
+      </a>
+      <a class="project-card" href="#">
+        <div class="project-kicker">Project</div>
+        <div class="project-name">cronduit</div>
+        <div class="project-desc">Docker-native cron scheduler.</div>
+        <div class="project-tags"><span>docker</span><span>scheduling</span><span>open source</span></div>
+        <div class="project-arrow">→</div>
+      </a>
+      <a class="project-card" href="#">
+        <div class="project-kicker">Project</div>
+        <div class="project-name">GRUVAX</div>
+        <div class="project-desc">AI music file organiser. Anthropic Batch API + prompt caching.</div>
+        <div class="project-tags"><span>python</span><span>AI</span><span>music</span></div>
+        <div class="project-arrow">→</div>
+      </a>
+    </div>
+  </section>
   <footer></footer>
   <script>
 function drawMark(canvasId, opts) {
