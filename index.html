@@ -34,6 +34,36 @@
   #nav-mark { display: block; }
   .nav-name { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--near-white); }
   .nav-url  { font-size: 9px; letter-spacing: 0.2em; color: var(--url-color); }
+
+  .hero { position: relative; min-height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .hero-inner {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 80px; padding: 0 40px; max-width: 1100px;
+    animation: heroIn 800ms ease-out both;
+  }
+  @keyframes heroIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .hero-mark-wrap { position: relative; width: 320px; height: 340px; flex-shrink: 0; }
+  .hero-mark-wrap canvas { position: absolute; inset: 0; display: block; }
+  #hero-mark-rotor { animation: spin 60s linear infinite; transform-origin: 50% 55%; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .wm-lacquer { font-family:'Anybody',cursive; font-weight:200; font-style:italic; font-size:64px; line-height:1; letter-spacing:-0.5px; color:var(--near-white); }
+  .wm-works-row { display:flex; align-items:flex-end; }
+  .wm-works  { font-family:'Anybody',cursive; font-weight:200; font-style:italic; font-size:64px; line-height:1; letter-spacing:-0.5px; color:var(--violet); }
+  .wm-studio { font-size:12px; letter-spacing:0.22em; color:var(--dimmed); margin-bottom:10px; margin-left:10px; white-space:nowrap; }
+  .wm-url    { font-size:9px; letter-spacing:0.2em; color:var(--url-color); text-align:right; margin-top:8px; }
+  .hero-copy { margin-top:40px; font-size:13px; font-weight:300; letter-spacing:0.02em; line-height:1.8; color:var(--dimmed); }
+  .hero-btn  {
+    display:inline-block; margin-top:24px;
+    font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--near-white);
+    background:transparent; border:0.8px solid var(--violet); padding:12px 24px; cursor:pointer;
+    transition: background .2s, color .2s;
+  }
+  .hero-btn:hover { background:var(--violet); color:var(--near-white); }
+  @media (prefers-reduced-motion: reduce) {
+    #hero-mark-rotor { animation: none; }
+    .hero-inner { animation: none; }
+  }
 </style>
 </head>
 <body>
@@ -44,7 +74,24 @@
     </div>
     <span class="nav-url">lacquer.works</span>
   </nav>
-  <section class="hero"></section>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-mark-wrap">
+        <canvas id="hero-mark-static" width="320" height="340"></canvas>
+        <canvas id="hero-mark-rotor"  width="320" height="340"></canvas>
+      </div>
+      <div class="hero-text">
+        <div class="wm-lacquer">Lacquer</div>
+        <div class="wm-works-row">
+          <div class="wm-works">Works</div>
+          <div class="wm-studio">STUDIO</div>
+        </div>
+        <div class="wm-url">lacquer.works</div>
+        <div class="hero-copy">// building at the intersection of music, data, and AI</div>
+        <div><a class="hero-btn" href="mailto:hello@lacquer.works">Get in touch →</a></div>
+      </div>
+    </div>
+  </section>
   <section class="about"></section>
   <section class="projects"></section>
   <footer></footer>
@@ -197,6 +244,18 @@ function drawMark(canvasId, opts) {
 
 document.fonts.ready.then(() => {
   drawMark('nav-mark', { showText: false });
+  const TRANSPARENT = 'rgba(0,0,0,0)';
+  // Static layer: rings + interior + waveform bars + arc text (glyphs/dots hidden)
+  drawMark('hero-mark-static', {
+    glyphAColor: TRANSPARENT, glyphBColor: TRANSPARENT,
+    dot1Color: TRANSPARENT, dot2Color: TRANSPARENT,
+  });
+  // Rotating layer: only the asymmetric glyph arcs + terminal dots (everything else hidden)
+  drawMark('hero-mark-rotor', {
+    bg: TRANSPARENT, showText: false,
+    outerColor: TRANSPARENT, grooveColor: TRANSPARENT,
+    bar1Color: TRANSPARENT, bar2Color: TRANSPARENT, bar3Color: TRANSPARENT,
+  });
 });
   </script>
 </body>
