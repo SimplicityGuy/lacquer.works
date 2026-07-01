@@ -1,0 +1,4 @@
+# local verification artifacts
+*.png
+.playwright-mcp/
+__pycache__/
