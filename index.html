@@ -54,11 +54,12 @@
   .wm-works  { font-family:'Anybody',cursive; font-weight:200; font-style:italic; font-size:64px; line-height:1; letter-spacing:-0.5px; color:var(--violet); }
   .wm-studio { font-size:12px; letter-spacing:0.22em; color:var(--dimmed); margin-bottom:10px; margin-left:10px; white-space:nowrap; }
   .wm-url    { font-size:9px; letter-spacing:0.2em; color:var(--url-color); text-align:right; margin-top:8px; }
+  .wm-heading { margin: 0; font-size: inherit; font-weight: inherit; line-height: inherit; }
   .hero-copy { margin-top:40px; font-size:13px; font-weight:300; letter-spacing:0.02em; line-height:1.8; color:var(--dimmed); }
   .hero-btn  {
     display:inline-block; margin-top:24px;
     font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--near-white);
-    background:transparent; border:0.5px solid var(--violet); padding:12px 24px; cursor:pointer;
+    background:transparent; border:0.8px solid var(--violet); padding:12px 24px; cursor:pointer;
     transition: background .2s, color .2s;
   }
   .hero-btn:hover { background:var(--violet); color:var(--near-white); }
@@ -103,24 +104,26 @@
 <body>
   <nav>
     <div class="nav-left">
-      <canvas id="nav-mark" width="48" height="48"></canvas>
+      <canvas id="nav-mark" width="48" height="48" aria-hidden="true"></canvas>
       <span class="nav-name">Lacquer Works</span>
     </div>
     <span class="nav-url">lacquer.works</span>
   </nav>
   <section class="hero">
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
     <div class="hero-inner">
       <div class="hero-mark-wrap">
-        <canvas id="hero-mark-static" width="320" height="340"></canvas>
-        <canvas id="hero-mark-rotor"  width="320" height="340"></canvas>
+        <canvas id="hero-mark-static" width="320" height="340" aria-hidden="true"></canvas>
+        <canvas id="hero-mark-rotor"  width="320" height="340" aria-hidden="true"></canvas>
       </div>
       <div class="hero-text">
-        <div class="wm-lacquer">Lacquer</div>
-        <div class="wm-works-row">
-          <div class="wm-works">Works</div>
-          <div class="wm-studio">STUDIO</div>
-        </div>
+        <h1 class="wm-heading">
+          <div class="wm-lacquer">Lacquer</div>
+          <div class="wm-works-row">
+            <div class="wm-works">Works</div>
+            <div class="wm-studio">STUDIO</div>
+          </div>
+        </h1>
         <div class="wm-url">lacquer.works</div>
         <div class="hero-copy">// building at the intersection of music, data, and AI</div>
         <div><a class="hero-btn" href="mailto:hello@lacquer.works">Get in touch →</a></div>
@@ -391,7 +394,7 @@ document.fonts.ready.then(() => {
   });
   const fav = document.createElement('canvas');
   fav.id = 'favicon-src'; fav.width = 64; fav.height = 64;
-  fav.style.display = 'none'; document.body.appendChild(fav);
+  fav.style.display = 'none'; fav.setAttribute('aria-hidden','true'); document.body.appendChild(fav);
   drawMark('favicon-src', {});
   document.getElementById('favicon').href = fav.toDataURL('image/png');
 });
