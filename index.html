@@ -35,6 +35,7 @@
   .nav-name { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--near-white); }
   .nav-url  { font-size: 9px; letter-spacing: 0.2em; color: var(--url-color); }
 
+  #bg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
   .hero { position: relative; min-height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
   .hero-inner {
     position: relative; z-index: 1;
@@ -75,6 +76,7 @@
     <span class="nav-url">lacquer.works</span>
   </nav>
   <section class="hero">
+    <canvas id="bg-canvas"></canvas>
     <div class="hero-inner">
       <div class="hero-mark-wrap">
         <canvas id="hero-mark-static" width="320" height="340"></canvas>
@@ -241,6 +243,63 @@ function drawMark(canvasId, opts) {
   arcText('LACQUER', o.rText, -Math.PI / 2,  1, o.textTopColor, fs * 0.9);
   arcText('WORKS',   o.rText,  Math.PI / 2, -1, o.textBotColor, fs * 1.1);
 }
+
+// ── Vinyl-grooves hero background (Present intensity) ──
+(function(){
+  const cv = document.getElementById('bg-canvas');
+  if (!cv) return;
+  const cx = cv.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  const intensity = 1.7;                 // "Present"
+  let W = 0, H = 0, running = false;
+
+  function resize(){
+    const r = cv.getBoundingClientRect();
+    W = r.width; H = r.height;
+    cv.width = Math.max(1, Math.round(W*DPR));
+    cv.height = Math.max(1, Math.round(H*DPR));
+    cx.setTransform(DPR,0,0,DPR,0,0);
+  }
+
+  function drawGrooves(t){
+    cx.clearRect(0,0,W,H);
+    const ccx = W*0.30, ccy = H*0.52;
+    const maxR = Math.hypot(Math.max(ccx, W-ccx), Math.max(ccy, H-ccy)) + 40;
+    const gap = 15;
+    const waveSpeed = 0.0011 * intensity;
+    cx.save();
+    cx.translate(ccx, ccy);
+    for (let r=gap; r<maxR; r+=gap){
+      const crest = Math.max(0, Math.sin(r*0.045 - t*waveSpeed));
+      const alpha = (0.045 + crest*0.16*intensity) * (1 - r/maxR*0.32);
+      cx.beginPath(); cx.arc(0,0,r,0,Math.PI*2);
+      cx.strokeStyle = `rgba(157,92,255,${alpha.toFixed(4)})`; cx.lineWidth = 1; cx.stroke();
+    }
+    cx.beginPath(); cx.arc(0,0, 58 + Math.sin(t*0.0006)*7, 0, Math.PI*2);
+    cx.strokeStyle = `rgba(192,132,252,${(0.10*intensity).toFixed(4)})`; cx.lineWidth = 1; cx.stroke();
+    const orbitR = Math.min(W,H)*0.20;
+    const ang = -t*0.00026 * intensity;
+    const dx = orbitR*Math.cos(ang), dy = orbitR*Math.sin(ang);
+    cx.beginPath(); cx.moveTo(0,0); cx.lineTo(dx,dy);
+    cx.strokeStyle = `rgba(157,92,255,${(0.05*intensity).toFixed(4)})`; cx.lineWidth = 0.5; cx.stroke();
+    cx.beginPath(); cx.arc(dx,dy, 2.2, 0, Math.PI*2);
+    cx.fillStyle = `rgba(244,114,182,${Math.min(0.85,0.55*intensity).toFixed(4)})`; cx.fill();
+    cx.restore();
+  }
+
+  function frame(t){ if (!running) return; drawGrooves(t); requestAnimationFrame(frame); }
+  function start(){ if (running) return; running = true; requestAnimationFrame(frame); }
+  function stop(){ running = false; }
+
+  window.addEventListener('resize', () => { resize(); if (reduceMotion) drawGrooves(0); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop(); else if (!reduceMotion) start();
+  });
+
+  resize();
+  if (reduceMotion) drawGrooves(0); else start();
+})();
 
 document.fonts.ready.then(() => {
   drawMark('nav-mark', { showText: false });
