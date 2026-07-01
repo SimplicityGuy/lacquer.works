@@ -23,16 +23,181 @@
   html, body { background: var(--bg); color: var(--near-white); }
   body { font-family: 'JetBrains Mono', monospace; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(4,3,10,0.92); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--faint);
+  }
+  .nav-left { display: flex; align-items: center; gap: 14px; }
+  #nav-mark { display: block; }
+  .nav-name { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--near-white); }
+  .nav-url  { font-size: 9px; letter-spacing: 0.2em; color: var(--url-color); }
 </style>
 </head>
 <body>
-  <nav></nav>
+  <nav>
+    <div class="nav-left">
+      <canvas id="nav-mark" width="48" height="48"></canvas>
+      <span class="nav-name">Lacquer Works</span>
+    </div>
+    <span class="nav-url">lacquer.works</span>
+  </nav>
   <section class="hero"></section>
   <section class="about"></section>
   <section class="projects"></section>
   <footer></footer>
   <script>
-  // drawMark + background + boot added in later tasks
+function drawMark(canvasId, opts) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  const bg = opts.bg || '#04030a';
+
+  const o = Object.assign({
+    cx: W / 2,
+    cy: H / 2 + H * 0.05,
+    rOuter:  W * 0.36,
+    rGroove: W * 0.29,
+    rFill:   W * 0.26,
+    rGlyphA: W * 0.21,
+    rGlyphB: W * 0.14,
+    rText:   W * 0.325,
+    barW:    W * 0.15,
+    barOff:  W * 0.046,
+    dotA:    W * 0.019,
+    dotB:    W * 0.015,
+    fontSize: Math.max(6, Math.round(W * 0.032)),
+    showText: W >= 80,
+    outerColor:  '#9d5cff',
+    grooveColor: '#2d1b6e',
+    glyphAColor: '#c084fc',
+    glyphBColor: '#2d1b6e',
+    bar1Color:   '#c084fc',
+    bar2Color:   '#f472b6',
+    bar3Color:   '#c084fc',
+    dot1Color:   '#f472b6',
+    dot2Color:   '#9d5cff',
+    textTopColor:'#c084fc',
+    textBotColor:'#9d5cff',
+  }, opts);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // background fill
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // outer ring
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rOuter, 0, Math.PI * 2);
+  ctx.strokeStyle = o.outerColor;
+  ctx.lineWidth = Math.max(0.8, W * 0.009);
+  ctx.stroke();
+
+  // groove ring
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rGroove, 0, Math.PI * 2);
+  ctx.strokeStyle = o.grooveColor;
+  ctx.lineWidth = Math.max(0.5, W * 0.004);
+  ctx.stroke();
+
+  // interior fill
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rFill, 0, Math.PI * 2);
+  ctx.fillStyle = bg;
+  ctx.fill();
+
+  // outer glyph arc (310deg, gap at bottom-right)
+  const gapStart = Math.PI * 50 / 180;
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rGlyphA, gapStart, 0, false);
+  ctx.strokeStyle = o.glyphAColor;
+  ctx.lineWidth = Math.max(0.8, W * 0.009);
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // inner glyph arc (280deg)
+  ctx.beginPath();
+  ctx.arc(o.cx, o.cy, o.rGlyphB, Math.PI * 65/180, Math.PI * 345/180, false);
+  ctx.strokeStyle = o.glyphBColor;
+  ctx.lineWidth = Math.max(0.5, W * 0.005);
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // waveform bars
+  const bx = o.cx - o.barW * 0.35;
+  const by = o.cy;
+  const lw = Math.max(0.8, W * 0.01);
+  ctx.lineCap = 'round';
+
+  ctx.beginPath();
+  ctx.moveTo(bx, by - o.barOff);
+  ctx.lineTo(bx + o.barW, by - o.barOff);
+  ctx.strokeStyle = o.bar1Color; ctx.lineWidth = lw; ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(bx + o.barW * 0.18, by);
+  ctx.lineTo(bx + o.barW * 1.18, by);
+  ctx.strokeStyle = o.bar2Color; ctx.lineWidth = lw; ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(bx, by + o.barOff);
+  ctx.lineTo(bx + o.barW * 0.82, by + o.barOff);
+  ctx.strokeStyle = o.bar3Color; ctx.lineWidth = lw; ctx.stroke();
+
+  // terminal dots
+  ctx.beginPath();
+  ctx.arc(o.cx + o.rGlyphA, o.cy, o.dotA, 0, Math.PI * 2);
+  ctx.fillStyle = o.dot1Color; ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(
+    o.cx + o.rGlyphA * Math.cos(gapStart),
+    o.cy + o.rGlyphA * Math.sin(gapStart),
+    o.dotB, 0, Math.PI * 2
+  );
+  ctx.fillStyle = o.dot2Color; ctx.fill();
+
+  // arc text
+  if (!o.showText) return;
+
+  const fs = o.fontSize;
+  ctx.font = `${fs}px 'JetBrains Mono', monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  function arcText(text, radius, startAngle, direction, color, spacing) {
+    const letters = text.split('');
+    const letterAngles = letters.map(l => (ctx.measureText(l).width + spacing) / radius);
+    const totalAngle = letterAngles.reduce((a, b) => a + b, 0);
+    let angle = startAngle - (totalAngle / 2) * direction;
+    ctx.fillStyle = color;
+    letters.forEach((letter) => {
+      const a = letterAngles.shift();
+      const drawAngle = angle + (a / 2) * direction;
+      ctx.save();
+      ctx.translate(
+        o.cx + radius * Math.cos(drawAngle),
+        o.cy + radius * Math.sin(drawAngle)
+      );
+      ctx.rotate(drawAngle + (direction > 0 ? Math.PI / 2 : -Math.PI / 2));
+      ctx.fillText(letter, 0, 0);
+      ctx.restore();
+      angle += a * direction;
+    });
+  }
+
+  arcText('LACQUER', o.rText, -Math.PI / 2,  1, o.textTopColor, fs * 0.9);
+  arcText('WORKS',   o.rText,  Math.PI / 2, -1, o.textBotColor, fs * 1.1);
+}
+
+document.fonts.ready.then(() => {
+  drawMark('nav-mark', { showText: false });
+});
   </script>
 </body>
 </html>
