@@ -65,6 +65,11 @@
     #hero-mark-rotor { animation: none; }
     .hero-inner { animation: none; }
   }
+  .about { background: var(--bg2); display: grid; grid-template-columns: repeat(3, 1fr); border-top: 0.5px solid var(--faint); border-bottom: 0.5px solid var(--faint); }
+  .about-col { padding: 40px; border-left: 0.5px solid var(--faint); }
+  .about-col:first-child { border-left: none; }
+  .about-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--url-color); margin-bottom: 16px; }
+  .about-body  { font-size: 12px; font-weight: 300; line-height: 1.8; color: var(--dimmed); }
 </style>
 </head>
 <body>
@@ -94,7 +99,20 @@
       </div>
     </div>
   </section>
-  <section class="about"></section>
+  <section class="about">
+    <div class="about-col">
+      <div class="about-label">Founder &amp; Principal Engineer</div>
+      <div class="about-body">VP-level engineering depth, AI practitioner, independent builder.</div>
+    </div>
+    <div class="about-col">
+      <div class="about-label">Music + Data + AI</div>
+      <div class="about-body">Tools for exploring, managing, and understanding music collections.</div>
+    </div>
+    <div class="about-col">
+      <div class="about-label">Est. MMXXV</div>
+      <div class="about-body">Lacquer Works Studio. Seattle. Open source where possible.</div>
+    </div>
+  </section>
   <section class="projects"></section>
   <footer></footer>
   <script>
