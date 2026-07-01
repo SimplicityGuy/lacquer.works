@@ -1,4 +1,5 @@
 # local verification artifacts
 *.png
 .playwright-mcp/
+.superpowers/
 __pycache__/
