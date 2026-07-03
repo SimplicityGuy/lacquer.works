@@ -316,9 +316,9 @@ document.fonts.ready.then(() => {
   - Tags in 8px uppercase, `border: 0.5px solid var(--mid)`, `color: var(--purple)`
   - `→` link in `var(--violet)` pointing to GitHub (use `#` for now)
 - Projects to include:
-  - **discogsography** — Vinyl collection graph. Neo4j + PostgreSQL + Discogs API. `python · docker · graph`
-  - **cronduit** — Docker-native cron scheduler. `docker · scheduling · open source`
-  - **GRUVAX** — AI music file organiser. Anthropic Batch API + prompt caching. `python · AI · music`
+  - **discogsography** — The Discogs database as a knowledge graph. Neo4j + PostgreSQL, explored by AI over MCP. `python · graph · AI`
+  - **phaze** — Align your music. AI fingerprints, analyses, and renames your collection — you approve every change. `python · audio · AI`
+  - **GRUVAX** — Vinyl shelf navigator. Find any record on your Kallax shelves — location computed, not tracked. `python · fastapi · vinyl`
 
 ### Footer
 - Full width, `var(--bg)`, `border-top: 0.5px solid var(--faint)`
