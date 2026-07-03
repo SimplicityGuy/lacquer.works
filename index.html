@@ -213,9 +213,13 @@ function drawMark(canvasId, opts) {
 
   ctx.clearRect(0, 0, W, H);
 
-  // background fill
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, W, H);
+  // No full-canvas fill — the mark sits transparently over the hero background so
+  // it doesn't cast a rectangular block. The interior disc (below) still masks the
+  // grooves behind the glyph. Pass opts.canvasBg to opt into a solid backdrop.
+  if (o.canvasBg) {
+    ctx.fillStyle = o.canvasBg;
+    ctx.fillRect(0, 0, W, H);
+  }
 
   // outer ring
   ctx.beginPath();
