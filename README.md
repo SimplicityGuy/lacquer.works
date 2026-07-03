@@ -252,11 +252,11 @@ label.
 
 The three project cards link to their GitHub repositories:
 
-| Card             | Blurb                                                          | Tags                    | Repo                                                                            |
-| ---------------- | -------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------ |
-| `discogsography` | Vinyl collection graph. Neo4j + PostgreSQL + Discogs API.      | python · docker · graph | [SimplicityGuy/discogsography](https://github.com/SimplicityGuy/discogsography) |
-| `phaze`          | Align your music.                                              | python · music · audio  | [SimplicityGuy/phaze](https://github.com/SimplicityGuy/phaze)                   |
-| `GRUVAX`         | AI music file organiser. Anthropic Batch API + prompt caching. | python · AI · music     | [SimplicityGuy/GRUVAX](https://github.com/SimplicityGuy/GRUVAX)                 |
+| Card             | Blurb                                                                                     | Tags                    | Repo                                                                            |
+| ---------------- | ----------------------------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------ |
+| `discogsography` | The Discogs database as a knowledge graph. Neo4j + PostgreSQL, explored by AI over MCP.    | python · graph · AI     | [SimplicityGuy/discogsography](https://github.com/SimplicityGuy/discogsography) |
+| `phaze`          | Align your music. AI fingerprints, analyses, and renames your collection — you approve every change. | python · audio · AI     | [SimplicityGuy/phaze](https://github.com/SimplicityGuy/phaze)                   |
+| `GRUVAX`         | Vinyl shelf navigator. Find any record on your Kallax shelves — location computed, not tracked. | python · fastapi · vinyl | [SimplicityGuy/GRUVAX](https://github.com/SimplicityGuy/GRUVAX)                 |
 
 To change the roster, edit the three `.project-card` anchors in `index.html`:
 name (`.project-name`), one-line blurb (`.project-desc`), tags
@@ -296,8 +296,9 @@ browser.
   prefers-reduced-motion*) and confirm all motion stops on a clean static frame.
 - Check the collapse at ≤768px (spot-check ~375px and ~1440px).
 
-Reference screenshots from build/verification live at the repo root
-(`desktop-*.png`, `mobile-*.png`, `hero-*.png`, `*-verification.png`).
+Verification screenshots are treated as disposable local artifacts — the
+`.gitignore` excludes every `*.png`, so they never enter the repo. Regenerate them
+on demand rather than committing them.
 
 ---
 
@@ -317,18 +318,20 @@ waits on `document.fonts.ready`).
 ├── index.html                     # the entire site — HTML + CSS + JS in one file
 ├── README.md                      # this document
 ├── LICENSE
+├── .gitignore
 ├── design/                        # design exploration & source assets
 │   ├── lacquer-works-assets.html  # design system + drawMark reference
-│   ├── bg-prototypes.html         # the four background candidates
-│   ├── lw-1-grooves.png … lw-4-waveform.png   # background candidate renders
-│   └── lw-fix-*.png               # tuning iterations
-├── docs/
-│   └── superpowers/
-│       ├── specs/   2026-06-30-lacquer-works-landing-design.md   # the design contract
-│       └── plans/   2026-06-30-lacquer-works-landing.md          # the build plan
-├── lacquer-works-claude-code-prompt.md   # original source prompt
-└── *.png                          # build / verification screenshots
+│   └── bg-prototypes.html         # the four background candidates
+└── docs/
+    ├── lacquer-works-claude-code-prompt.md   # original source prompt
+    └── superpowers/
+        ├── specs/   2026-06-30-lacquer-works-landing-design.md   # the design contract
+        └── plans/   2026-06-30-lacquer-works-landing.md          # the build plan
 ```
+
+Background renders (`design/lw-*.png`) and verification screenshots are
+gitignored local artifacts — regenerate them from `design/bg-prototypes.html` and
+the site rather than expecting them in a fresh clone.
 
 The canonical description of the design system and every locked decision is the
 spec: [`docs/superpowers/specs/2026-06-30-lacquer-works-landing-design.md`](docs/superpowers/specs/2026-06-30-lacquer-works-landing-design.md).

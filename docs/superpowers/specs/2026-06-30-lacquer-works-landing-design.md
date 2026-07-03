@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-30
 **Status:** Approved
-**Source prompt:** `lacquer-works-claude-code-prompt.md`
+**Source prompt:** `docs/lacquer-works-claude-code-prompt.md`
 **Design assets:** `design/lacquer-works-assets.html`
 **Background prototype:** `design/bg-prototypes.html`
 

@@ -14,7 +14,7 @@
 - Fonts: `<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Anybody:ital,wght@0,200;1,200&display=swap" rel="stylesheet">`.
 - Palette (CSS custom properties, exact): `--bg:#04030a; --bg2:#09071a; --bg3:#0d0b20; --violet:#9d5cff; --purple:#c084fc; --magenta:#f472b6; --mid:#2d1b6e; --faint:#1c1040; --near-white:#f0eaff; --dimmed:#c4b0e8; --url-color:#c084fc;`
 - All borders `0.5px` (buttons `0.8px`). `border-radius: 0` everywhere. No box-shadows. No gradients.
-- `drawMark` is copied **verbatim** from `lacquer-works-claude-code-prompt.md` / `design/lacquer-works-assets.html` — do not alter its drawing logic.
+- `drawMark` is copied **verbatim** from `docs/lacquer-works-claude-code-prompt.md` / `design/lacquer-works-assets.html` — do not alter its drawing logic.
 - All mark/arc-text drawing runs inside `document.fonts.ready.then(...)`.
 - Copy is exact: hero copy `// building at the intersection of music, data, and AI`; button `Get in touch →` → `mailto:hello@lacquer.works`; projects discogsography / cronduit / GRUVAX; footer `Lacquer Works Studio · MMXXV`.
 - Background: vinyl grooves, **Present** intensity (`intensity = 1.7`), behind the **hero only**.
