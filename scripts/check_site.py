@@ -19,9 +19,12 @@ class PageParser(HTMLParser):
         self.title_count = 0
         self.in_title = False
         self.title_text = ""
+        self.has_utf8_charset = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attrs_by_name = dict(attrs)
+        if tag == "meta" and (attrs_by_name.get("charset") or "").strip().lower() == "utf-8":
+            self.has_utf8_charset = True
         if tag == "h1":
             self.h1_count += 1
         elif tag == "title":
@@ -66,9 +69,6 @@ def validate(root: Path) -> list[str]:
     except UnicodeDecodeError as error:
         return [f"{page}: file is not valid UTF-8 ({error})"]
 
-    if 'charset="utf-8"' not in source.lower() and "charset=utf-8" not in source.lower():
-        errors.append(f"{page}: missing UTF-8 charset declaration")
-
     parser = PageParser()
     try:
         parser.feed(source)
@@ -77,6 +77,8 @@ def validate(root: Path) -> list[str]:
         errors.append(f"{page}: unable to parse HTML ({error})")
         return errors
 
+    if not parser.has_utf8_charset:
+        errors.append(f"{page}: missing UTF-8 charset declaration")
     if parser.title_count != 1 or not parser.title_text.strip():
         errors.append(f"{page}: expected exactly one non-empty <title> (found {parser.title_count})")
     if parser.h1_count != 1:
@@ -90,12 +92,19 @@ def validate(root: Path) -> list[str]:
         if parsed.scheme or parsed.netloc:
             continue
 
-        target_path = (page.parent / unquote(parsed.path)).resolve() if parsed.path else page.resolve()
+        decoded_path = unquote(parsed.path)
+        if decoded_path.startswith("/"):
+            target_path = (root / decoded_path.lstrip("/")).resolve()
+        else:
+            target_path = (page.parent / decoded_path).resolve() if decoded_path else page.resolve()
         try:
             target_path.relative_to(root.resolve())
         except ValueError:
             errors.append(f"{page}: {attribute} reference escapes the site root: {reference!r}")
             continue
+
+        if parsed.fragment and target_path.is_dir():
+            target_path = target_path / "index.html"
 
         if not target_path.exists():
             errors.append(f"{page}: {attribute} target does not exist: {reference!r}")
