@@ -281,8 +281,9 @@ description per card — the grid and the tone both depend on that restraint.
 
 ## Development
 
-There is nothing to install and nothing to run. Edit `index.html`, reload the
-browser.
+There is nothing to install and no site build. Edit `index.html`, reload the
+browser, then run `just check` to validate the document structure and local
+references.
 
 **Verifying a change:**
 
